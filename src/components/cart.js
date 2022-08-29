@@ -8,6 +8,7 @@ import CartView from '../views/cart';
 import CartUpdater from '../updaters/cart';
 import {addClassToElement} from '../utils/element-class';
 import {removeTrapFocus} from '../utils/focus';
+import {createCheckout} from '../checkout';
 
 export const NO_IMG_URL = '//sdks.shopifycdn.com/buy-button/latest/no-image.jpg';
 
@@ -445,7 +446,7 @@ export default class Cart extends Component {
           lineItem,
         ],
       };
-      return this.props.client.checkout.create(input).then((checkout) => {
+      return createCheckout(this.props.client, input).then((checkout) => {
         localStorage.setItem(this.localStorageCheckoutKey, checkout.id);
         this.model = checkout;
         this.updateCache(this.model.lineItems);

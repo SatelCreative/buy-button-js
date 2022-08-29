@@ -10,9 +10,11 @@ import 'core-js/features/object/assign';
 import 'core-js/features/object/values';
 
 class UpdatedShopifyBuy extends ShopifyBuy {
-  static buildClient(config) {
+  static buildClient(config, attributes) {
     const newConfig = Object.assign({}, config, {source: 'buy-button-js'});
-    return super.buildClient(newConfig);
+    const client = super.buildClient(newConfig);
+    client.config.attributes = Object.assign({}, attributes);
+    return client;
   }
 }
 

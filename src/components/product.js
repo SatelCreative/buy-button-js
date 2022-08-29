@@ -9,6 +9,7 @@ import browserFeatures from '../utils/detect-features';
 import getUnitPriceBaseUnit from '../utils/unit-price';
 import ProductView from '../views/product';
 import ProductUpdater from '../updaters/product';
+import { createCheckout } from '../checkout';
 
 function isFunction(obj) {
   return Boolean(obj && obj.constructor && obj.call && obj.apply);
@@ -681,7 +682,7 @@ export default class Product extends Component {
         ],
       };
 
-      this.props.client.checkout.create(input).then((checkout) => {
+      createCheckout(this.props.client, input).then((checkout) => {
         checkoutWindow.location = checkout.webUrl;
       });
     }
